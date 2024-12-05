@@ -2,16 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
-const path = require('path');
 
-// Middleware untuk body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Middleware untuk melayani file statis dari folder 'assets'
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Route untuk halaman utama
 app.get('/', (req, res) => {
     const html = `
     <!DOCTYPE html>
@@ -51,14 +46,14 @@ app.get('/', (req, res) => {
     </body>
     </html>
     `;
-    res.send(html); // Kirim HTML sebagai respons
+    res.send(html);
 });
 
-// Import route post
+
 const heroRouter = require('./routes/hero');
 app.use('/api/hero', heroRouter);
 
-// Menjalankan server
+
 app.listen(port, () => {
     console.log(`Aplikasi ini berjalan di http://localhost:${port}`);
 });
